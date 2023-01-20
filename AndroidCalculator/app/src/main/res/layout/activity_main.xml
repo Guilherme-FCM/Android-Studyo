@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="30dp"
+    tools:context=".MainActivity">
+<!--    android:background="@color/primary"-->
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/input1"
+        android:hint="@string/typeText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:padding="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/input2"
+        android:hint="@string/typeText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:padding="10dp" />
+<!--        android:textColorHint="@color/primary"-->
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:columnCount="4">
+
+        <Button
+            android:id="@+id/sumButton"
+            android:text="+"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:backgroundTint="@color/purple_200"
+            android:textColor="@color/secundary" />
+
+        <Button
+            android:id="@+id/minusButton"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:backgroundTint="@color/purple_200"
+            android:text="-"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/secundary" />
+
+        <Button
+            android:id="@+id/multiplicationButton"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:backgroundTint="@color/purple_200"
+            android:text="*"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/secundary" />
+
+        <Button
+            android:id="@+id/divisionButton"
+            android:text="/"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:backgroundTint="@color/purple_200"
+            android:textColor="@color/secundary" />
+    </GridLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/calcButton"
+        android:text="@string/calcText"
+        android:backgroundTint="@color/secundary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+</LinearLayout>
