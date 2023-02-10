@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Toolbar</string>
+
+    <string-array name="p1">
+        <item>Fundamentos de Redes de Computadores</item>
+        <item>Informática Instrumental</item>
+        <item>Inglês Técnico</item>
+        <item>Introdução À Computação</item>
+        <item>Introdução à Lógica</item>
+        <item>Tendências Tecnológicas para o Mercado de TI</item>
+    </string-array>
+    <string-array name="p2">
+        <item>Análise de Sistemas</item>
+        <item>Fundamentos e Projeto de Banco de Dados</item>
+        <item>Introdução à Programação</item>
+        <item>Programação Básica para Web</item>
+        <item>Programação Orientada À Objetos</item>
+    </string-array>
+    <string-array name="p3">
+        <item>Administração de Sistemas Proprietários</item>
+        <item>Gerenciamento de Dados para Web</item>
+        <item>Introdução à Conectividade</item>
+        <item>Programação para Banco de Dados</item>
+        <item>Programação para Web Designers</item>
+    </string-array>
+    <string-array name="p4">
+        <item>Gestão de Projetos</item>
+        <item>Programação para Web II</item>
+        <item>Projeto de Interface Web</item>
+        <item>Projeto de Sistemas</item>
+        <item>Sistemas Distribuídos e SOA</item>
+        <item>Testes de Software</item>
+    </string-array>
+    <string-array name="p5">
+        <item>Administração de Banco de Dados</item>
+        <item>Infraestrutura para Sistemas Web </item>
+        <item>Metodologias de Desenvolvimento</item>
+        <item>Novas Tecnologias em BD</item>
+        <item>Programação para Dispositivos Móveis I </item>
+        <item>Segurança de Sistemas </item>
+    </string-array>
+    <string-array name="p6">
+        <item>Gerência de Configuração</item>
+        <item>Novas Tecnologias em Desenvolvimento para Web</item>
+        <item>Padrões de Projeto</item>
+        <item>Programação para Dispositivos Móveis II </item>
+    </string-array>
+</resources>

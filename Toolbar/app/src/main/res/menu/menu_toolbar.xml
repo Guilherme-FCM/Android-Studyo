@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/p1"
+        android:title="1° Período"/>
+    <item
+        android:id="@+id/p2"
+        android:title="2° Período"/>
+    <item
+        android:id="@+id/p3"
+        android:title="3° Período"/>
+    <item
+        android:id="@+id/p4"
+        android:title="4° Período"/>
+    <item
+        android:id="@+id/p5"
+        android:title="5° Período"/>
+    <item
+        android:id="@+id/p6"
+        android:title="6° Período"/>
+</menu>
