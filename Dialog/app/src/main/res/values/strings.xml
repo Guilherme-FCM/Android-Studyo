@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Dialog</string>
+    <string-array name="linguagens">
+        <item>Java</item>
+        <item>Javascript</item>
+        <item>PHP</item>
+        <item>C</item>
+        <item>Kotlin</item>
+    </string-array>
+</resources>
