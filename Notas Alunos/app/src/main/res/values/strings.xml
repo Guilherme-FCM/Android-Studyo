@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Notas Alunos</string>
+
+    <string-array name="disciplinas">
+        <item>Selecione uma disicplina...</item>
+        <item>Introdução à Computação</item>
+        <item>Lógica de Programação</item>
+        <item>Programação Orientada à Objetos</item>
+        <item>Programação Web</item>
+        <item>Design de Interfaces</item>
+        <item>Programação para Dispositivos Móveis</item>
+    </string-array>
+</resources>
