@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Peso Planetas</string>
+    <string-array name="planetas">
+        <item>Mercúrio</item>
+        <item>Vênus</item>
+        <item>Marte</item>
+        <item>Júpiter</item>
+        <item>Saturno</item>
+        <item>Urano</item>
+        <item>Netuno</item>
+    </string-array>
+
+    <array name="pesos">
+        <item>0.38</item>
+        <item>0.91</item>
+        <item>0.38</item>
+        <item>2.64</item>
+        <item>1.15</item>
+        <item>1.17</item>
+        <item>1.18</item>
+    </array>
+</resources>
