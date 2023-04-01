@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name">Digite seu nome</string>
+    <string name="pass">Digite sua senha</string>
+    <string name="button">Enviar</string>
+</resources>
