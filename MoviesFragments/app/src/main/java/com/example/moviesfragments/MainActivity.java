@@ -34,7 +34,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         if (i == R.id.radioButton) this.renderFragment(new ImageMovie());
         else if (i == R.id.radioButton2) this.renderFragment(new SinopseMovie());
-        else if (i == R.id.radioButton3) this.renderFragment(new AvaliationMovie());
+        else if (i == R.id.radioButton3) this.renderFragment(
+                new AvaliationMovie( binding.editText.getText().toString() )
+        );
     }
 
     private void renderFragment(Fragment fragment) {
