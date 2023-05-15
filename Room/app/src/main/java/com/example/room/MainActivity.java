@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.os.Bundle;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.room.dialogs.CachorroDialog;
 import com.example.room.entities.Cachorro;
 import com.example.room.entities.CachorroPessoa;
 import com.example.room.entities.Pessoa;
@@ -15,34 +20,47 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Database db;
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.textView);
-
         // É necessário utilizar uma Thread secundária -> allowMainThreadQueries = gambiarra para burlar
         db = Room.databaseBuilder(this, Database.class, "banco_room").allowMainThreadQueries().build();
 
-        insert();
-        textView.setOnClickListener((view -> {
-            list();
-        }));
+        ListView listView = findViewById(R.id.list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listCachorro());
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            CachorroDialog dialog = new CachorroDialog(getCachorro(i), adapter);
+            dialog.show(getSupportFragmentManager(), "CachorroDialog");
+        });
     }
 
-    private void list() {
+    private List<String> listCachorroPessoa() {
         List<CachorroPessoa> result = db.cachorroDao().listWithPessoa();
-        StringBuilder stringBuilder = new StringBuilder();
+        List<String> strings = new ArrayList<>();
 
         for (CachorroPessoa cp : result) {
-            stringBuilder
-                    .append("Cachorro: " + cp.cachorro.toString())
-                    .append("Pessoa: " + cp.pessoas.toString());
+            strings.add(
+                    "Cachorro: " + cp.cachorro.toString() +
+                    "Pessoa: " + cp.pessoas.toString()
+            );
         }
-        textView.setText(stringBuilder.toString());
+        return strings;
+    }
+
+    private String[] listCachorro() {
+        return db.cachorroDao().list()
+                .stream()
+                .map(Cachorro::toString)
+                .toArray(String[]::new);
+    }
+
+    private Cachorro getCachorro(int i) {
+        return db.cachorroDao().list().get(i);
     }
 
     private void insert() {
