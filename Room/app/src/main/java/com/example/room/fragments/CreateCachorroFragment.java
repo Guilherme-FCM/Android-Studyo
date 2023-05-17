@@ -18,9 +18,15 @@ import com.example.room.entities.Cachorro;
 
 public class CreateCachorroFragment extends Fragment {
     private CachorroDao dao;
+    private Cachorro cachorro;
 
     public CreateCachorroFragment(CachorroDao dao) {
         this.dao = dao;
+    }
+
+    public CreateCachorroFragment(CachorroDao dao, Cachorro cachorro) {
+        this.dao = dao;
+        this.cachorro = cachorro;
     }
 
     @Override
@@ -38,14 +44,26 @@ public class CreateCachorroFragment extends Fragment {
         EditText pessoaId = view.findViewById(R.id.pessoa);
         Button button = view.findViewById(R.id.button);
 
+        if (cachorro != null) {
+            nome.setText(cachorro.getNome());
+            raca.setText(cachorro.getRaca());
+            pessoaId.setText(String.valueOf(cachorro.getPessoaId()));
+        }
+
         button.setOnClickListener((v -> {
-            dao.insert(
-                    new Cachorro(
-                            nome.getText().toString(),
-                            raca.getText().toString(),
-                            Integer.parseInt(pessoaId.getText().toString())
-                    )
-            );
+            if (cachorro != null){
+                cachorro.setNome(nome.getText().toString());
+                cachorro.setRaca(raca.getText().toString());
+                cachorro.setPessoaId(Integer.parseInt(pessoaId.getText().toString()));
+                dao.update(cachorro);
+            } else {
+                Cachorro cachorro = new Cachorro(
+                    nome.getText().toString(),
+                    raca.getText().toString(),
+                    Integer.parseInt(pessoaId.getText().toString())
+                );
+                dao.insert(cachorro);
+            }
             startActivity( new Intent(getActivity(), MainActivity.class) );
         }));
         return view;

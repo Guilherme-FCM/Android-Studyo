@@ -10,8 +10,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.room.MainActivity;
+import com.example.room.R;
 import com.example.room.daos.CachorroDao;
 import com.example.room.entities.Cachorro;
 
@@ -32,8 +35,10 @@ public class CachorroDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("O que deseja realizar com o(a) '" + cachorro.getNome() + "'?")
                 .setPositiveButton("Atualizar", (dialogInterface, i) -> {
-                    adapter.notifyDataSetChanged();
-                    Toast.makeText(getContext(), "Atualizar", Toast.LENGTH_SHORT).show();
+                    FragmentManager fragManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragTransaction = fragManager.beginTransaction();
+                    fragTransaction.replace(R.id.frame, new CreateCachorroFragment(dao, cachorro));
+                    fragTransaction.commit();
                 })
                 .setNeutralButton("Excluir", (dialogInterface, i) -> {
                     dao.delete(cachorro);
