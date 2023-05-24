@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Jokenpo</string>
+
+    <array name="jokenpoDrawables">
+        <item>@drawable/pedra</item>
+        <item>@drawable/papel</item>
+        <item>@drawable/tesoura</item>
+    </array>
+
+    <string-array name="jokenpoNames">
+        <item>Pedra</item>
+        <item>Papel</item>
+        <item>Tesoura</item>
+    </string-array>
 </resources>
