@@ -4,35 +4,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.jokenpo.databinding.ActivityMainBinding;
 import com.example.jokenpo.databinding.ActivitySelectBinding;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class SelectActivity extends AppCompatActivity /* implements CardAdapter.ItemClickListener */ {
+public class SelectActivity extends AppCompatActivity implements CardAdapter.ItemClickListener {
     ActivitySelectBinding binding;
+    private CardAdapter adapter;
+    private int selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select);
+        binding = ActivitySelectBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        CardAdapter adapter = new CardAdapter(this, getData());
+        adapter = new CardAdapter(this, getData());
         binding.recyclerView.setLayoutManager(
-                new LinearLayoutManager(this)
+                new LinearLayoutManager(SelectActivity.this)
         );
         binding.recyclerView.setAdapter(adapter);
-//        adapter.setClickListener(this)
+        adapter.setClickListener(this);
+
+        binding.play.setOnClickListener(this::startPlay);
+        binding.random.setOnClickListener(this::randomSelect);
     }
 
-//    @Override
-//    public void onItemClick(View view, int position) {
-//        Toast.makeText(this, adapter.getItem(position).getTitulo(), Toast.LENGTH_SHORT).show();
-//    }
+    @Override
+    public void onItemClick(View view, int position) {
+        selected = position;
+        view.setBackgroundColor(getResources().getColor(R.color.selected));
+//        Toast.makeText(this, selected, Toast.LENGTH_SHORT).show();
+    }
 
     public ArrayList<Card> getData() {
         ArrayList<Card> cards = new ArrayList<>();
@@ -44,5 +55,21 @@ public class SelectActivity extends AppCompatActivity /* implements CardAdapter.
             cards.add(card);
         }
         return cards;
+    }
+
+    public void startPlay(View view) {
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("selected", selected);
+        startActivity(intent);
+    }
+
+    public void randomSelect(View view) {
+        Random random = new Random();
+        selected = random.nextInt(3);
+    }
+
+    public void setSelected(View view, int position) {
+        selected = position;
+        view.setBackgroundColor(getResources().getColor(R.color.selected));
     }
 }
