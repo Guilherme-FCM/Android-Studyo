@@ -2,6 +2,7 @@ package com.example.jokenpo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,9 +25,14 @@ public class ResultActivity extends AppCompatActivity {
         int userSelect = getIntent().getIntExtra("selected", -1);
         int gameSelect = randomSelect();
 
+        SharedPreferences sp = getSharedPreferences("jokenpo", MODE_PRIVATE);
+        String username = sp.getString("username", "");
 
-        // Add nome do usuário | melhorar msg final
-        binding.textView.setText("Você escolheu " + cardNames[userSelect] + " e o jogo escolheu " + cardNames[gameSelect] + "\n"+ getResult(userSelect, gameSelect));
+        binding.textView.setText(
+                "O jogador " + username + " escolheu " + cardNames[userSelect] + "\n" +
+                "O jogo escolheu " + cardNames[gameSelect] + "\n" +
+                getResult(userSelect, gameSelect)
+        );
     }
 
     public int randomSelect() {
