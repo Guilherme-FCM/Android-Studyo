@@ -3,6 +3,7 @@ package com.example.jokenpo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.View;
 
@@ -20,13 +21,20 @@ public class ResultActivity extends AppCompatActivity {
         binding = ActivityResultBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        String[] cardNames = getResources().getStringArray(R.array.jokenpoNames);
+        SharedPreferences sp = getSharedPreferences("jokenpo", MODE_PRIVATE);
+        String username = sp.getString("username", "");
 
         int userSelect = getIntent().getIntExtra("selected", -1);
         int gameSelect = randomSelect();
 
-        SharedPreferences sp = getSharedPreferences("jokenpo", MODE_PRIVATE);
-        String username = sp.getString("username", "");
+        String[] cardNames = getResources().getStringArray(R.array.jokenpoNames);
+        TypedArray cardDrawables = getResources().obtainTypedArray(R.array.jokenpoDrawables);
+
+        binding.cardUser.img.setImageResource(cardDrawables.getResourceId(userSelect, 0));
+        binding.cardUser.name.setText(username);
+
+        binding.cardGame.img.setImageResource(cardDrawables.getResourceId(gameSelect, 0));
+        binding.cardGame.name.setText("Jogo");
 
         binding.textView.setText(
                 "O jogador " + username + " escolheu " + cardNames[userSelect] + "\n" +

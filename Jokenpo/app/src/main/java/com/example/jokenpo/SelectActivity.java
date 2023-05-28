@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,10 @@ public class SelectActivity extends AppCompatActivity implements CardAdapter.Ite
         binding = ActivitySelectBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        SharedPreferences sp = getSharedPreferences("jokenpo", MODE_PRIVATE);
+        String username = sp.getString("username", "");
+        binding.username.setText(username + ", selecione sua jogada");
+
         adapter = new CardAdapter(this, getData());
         binding.recyclerView.setLayoutManager(
                 new LinearLayoutManager(SelectActivity.this)
@@ -40,9 +45,10 @@ public class SelectActivity extends AppCompatActivity implements CardAdapter.Ite
 
     @Override
     public void onItemClick(View view, int position) {
+        // Deixar todos os CardView's com fundo padrão
+
         selected = position;
         view.setBackgroundColor(getResources().getColor(R.color.selected));
-//        Toast.makeText(this, selected, Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<Card> getData() {
@@ -66,10 +72,6 @@ public class SelectActivity extends AppCompatActivity implements CardAdapter.Ite
     public void randomSelect(View view) {
         Random random = new Random();
         selected = random.nextInt(3);
-    }
-
-    public void setSelected(View view, int position) {
-        selected = position;
-        view.setBackgroundColor(getResources().getColor(R.color.selected));
+        startPlay(view);
     }
 }
