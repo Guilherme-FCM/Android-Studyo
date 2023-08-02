@@ -42,22 +42,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String criarJson() {
-        String json = "";
-        try {
-            JSONArray jsonArray = new JSONArray();
-            for(int i = 0; i < lista.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                    Estudante estudante = lista.get(i);
-                    jsonObject.put("nome", estudante.getNome());
-                    jsonObject.put("disciplina", estudante.getDisciplina());
-                    jsonObject.put("nota", estudante.getNota());
-                jsonArray.put(jsonObject);
+        JSONArray jsonArray = new JSONArray();
+        for(int i=0;i<lista.size();i++){
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("nome",lista.get(i).getNome());
+                jsonObject.put("disciplina",lista.get(i).getDisciplina());
+                jsonObject.put("nota",lista.get(i).getNota());
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            json = new JSONObject().put("estudantes", jsonArray.toString()).toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return json;
+            jsonArray.put(jsonObject);
+        }//for
+        return "{estudantes:"+jsonArray.toString()+"}";
+
     }
 
     public void gerarJson(View v) {
