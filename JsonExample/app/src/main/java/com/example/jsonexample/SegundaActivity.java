@@ -10,11 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.jsonexample.databinding.ActivitySegundaBinding;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,22 +40,32 @@ public class SegundaActivity extends AppCompatActivity implements AdapterView.On
         binding.listView.setOnItemClickListener(this);
     }
 
+//    private List<Estudante> consumirJson() {
+//        List<Estudante> estudantes = new ArrayList<>();
+//        try {
+//            JSONObject jsonObject = new JSONObject(dados);
+//            JSONArray jsonArray = jsonObject.getJSONArray("estudantes");
+//            for(int i = 0; i < jsonArray.length(); i++) {
+//                JSONObject object = jsonArray.getJSONObject(i);
+//                Estudante estudante = new Estudante(
+//                        object.getString("nome"),
+//                        object.getString("disciplina"),
+//                        object.getInt("nota")
+//                );
+//                estudantes.add(estudante);
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return estudantes;
+//    }
+
     private List<Estudante> consumirJson() {
-        List<Estudante> estudantes = new ArrayList<>();
-        try {
-            JSONObject jsonObject = new JSONObject(dados);
-            JSONArray jsonArray = jsonObject.getJSONArray("estudantes");
-            for(int i = 0; i < jsonArray.length(); i++) {
-                JSONObject object = jsonArray.getJSONObject(i);
-                Estudante estudante = new Estudante(
-                        object.getString("nome"),
-                        object.getString("disciplina"),
-                        object.getInt("nota")
-                );
-                estudantes.add(estudante);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        List<Estudante> estudantes = null;
+        if (dados != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Estudante>>(){}.getType();
+            estudantes = gson.fromJson(dados, type);
         }
         return estudantes;
     }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.jsonexample.databinding.ActivityMainBinding;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,30 +42,34 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Item inserido com sucesso!", Toast.LENGTH_SHORT).show();
     }
 
-    private String criarJson() {
-        JSONArray jsonArray = new JSONArray();
-        for(int i=0;i<lista.size();i++){
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("nome",lista.get(i).getNome());
-                jsonObject.put("disciplina",lista.get(i).getDisciplina());
-                jsonObject.put("nota",lista.get(i).getNota());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            jsonArray.put(jsonObject);
-        }//for
-        return "{estudantes:"+jsonArray.toString()+"}";
+//    private String criarJson() {
+//        JSONArray jsonArray = new JSONArray();
+//        for(int i=0;i<lista.size();i++){
+//            JSONObject jsonObject = new JSONObject();
+//            try {
+//                jsonObject.put("nome",lista.get(i).getNome());
+//                jsonObject.put("disciplina",lista.get(i).getDisciplina());
+//                jsonObject.put("nota",lista.get(i).getNota());
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            jsonArray.put(jsonObject);
+//        }//for
+//        return "{estudantes:"+jsonArray.toString()+"}";
+//    }
 
+    private String criarJson(List<Estudante> estudantes) {
+        Gson gson = new Gson();
+        return gson.toJson(estudantes);
     }
 
     public void gerarJson(View v) {
-        binding.resultado.setText(criarJson());
+        binding.resultado.setText(criarJson(lista));
     }
 
     public void abrirTela2(View v) {
         Intent it = new Intent(this, SegundaActivity.class);
-        it.putExtra("dados", criarJson());
+        it.putExtra("dados", criarJson(lista));
         startActivity(it);
     }
 }
