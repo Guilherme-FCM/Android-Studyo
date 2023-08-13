@@ -2,8 +2,9 @@ package com.example.gson_executor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private final String URL = "https://jsonplaceholder.typicode.com/posts";
@@ -25,13 +28,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new ObterDados().execute();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(() -> {
+            new ObterDados().execute();
+            handler.post(() -> {
+                TextView textViewDados = findViewById(R.id.textViewDados);
+                textViewDados.setText(builder.toString());
+            });
+        });
     }
 
-    private class ObterDados extends AsyncTask<Void, Void, Void> {
+    private class ObterDados {
 
-        @Override
-        protected Void doInBackground(Void... voids) {
+        public void execute() {
             Conexao conexao = new Conexao();
             InputStream inputStream = conexao.obterRespostaHttp(URL);
 
@@ -55,20 +65,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Erro no JSON", Toast.LENGTH_SHORT).show();
                 });
             }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Toast.makeText(MainActivity.this, "Download começando...", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        protected void onPostExecute(Void unused) {
-            super.onPostExecute(unused);
-            TextView textViewDados = findViewById(R.id.textViewDados);
-            textViewDados.setText(builder.toString());
         }
     }
 }
