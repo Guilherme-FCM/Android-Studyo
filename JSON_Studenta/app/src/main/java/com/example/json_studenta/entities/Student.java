@@ -1,9 +1,16 @@
 package com.example.json_studenta.entities;
 
+import android.annotation.SuppressLint;
+
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Student {
     @SerializedName("name")
@@ -54,17 +61,31 @@ public class Student {
         return year - this.birth_year;
     }
 
-    public boolean isApproved() {
-        double average = (grades.getGrade1() + grades.getGrade2() + grades.getGrade3()) / 3;
-        return average >= 6.0;
+    private double getAverage() {
+        double[] grades = {
+                this.grades.getGrade1(),
+                this.grades.getGrade2(),
+                this.grades.getGrade3()
+        };
+        return Arrays.stream(grades).average().orElse(0);
     }
 
+    public boolean isApproved() {
+        return getAverage() >= 6.0;
+    }
+
+    @SuppressLint("DefaultLocale")
     @Override
     public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", birth_year=" + birth_year +
-                ", grades=" + grades +
-                '}';
+        String situation = isApproved() ? "Aprovado" : "Reprovado";
+        String formattedAverage = new DecimalFormat("#.00").format(getAverage());
+
+        return String.format(
+                "Aluno(a) %s de %d anos está %s com média %s",
+                getName(),
+                getAge(),
+                situation,
+                formattedAverage
+        );
     }
 }

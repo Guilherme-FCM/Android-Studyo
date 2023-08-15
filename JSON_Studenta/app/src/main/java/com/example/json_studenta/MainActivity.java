@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.json_studenta.databinding.ActivityMainBinding;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         executor.execute(() -> {
             List<Student> students = getStudents();
             handler.post(() -> {
-                binding.textView.setText(students.toString());
+                showData(students);
             });
         });
     }
@@ -49,5 +50,10 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void showData(List<Student> data) {
+        ArrayAdapter<Student> adapter = new ArrayAdapter<Student>(this, android.R.layout.simple_list_item_1, data);
+        binding.listView.setAdapter(adapter);
     }
 }
