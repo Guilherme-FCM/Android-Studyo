@@ -9,4 +9,9 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_period1">1° Período</string>
+    <string name="menu_period2">2° Período</string>
+    <string name="menu_period3">3° Período</string>
+    <string name="menu_period4">4° Período</string>
+    <string name="menu_period5">5° Período</string>
+    <string name="menu_period6">6° Período</string>
 </resources>

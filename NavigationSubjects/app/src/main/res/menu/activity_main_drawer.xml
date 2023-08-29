@@ -11,5 +11,20 @@
         <item
             android:id="@+id/nav_period1"
             android:title="@string/menu_period1" />
+        <item
+            android:id="@+id/nav_period2"
+            android:title="@string/menu_period2" />
+        <item
+            android:id="@+id/nav_period3"
+            android:title="@string/menu_period3" />
+        <item
+            android:id="@+id/nav_period4"
+            android:title="@string/menu_period4" />
+        <item
+            android:id="@+id/nav_period5"
+            android:title="@string/menu_period5" />
+        <item
+            android:id="@+id/nav_period6"
+            android:title="@string/menu_period6" />
     </group>
 </menu>
