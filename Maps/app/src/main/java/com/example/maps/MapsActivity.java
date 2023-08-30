@@ -20,10 +20,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
-    private final LatLng PERTH = new LatLng(-31.952854,115.857342);
-    private final LatLng SYDNEY = new LatLng(-33.87365,151.20689);
-    private Marker markerPerth;
-    private Marker markerSydney;
+    private final LatLng PALMAS = new LatLng(-10.1868191,-48.3336937);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +39,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        markerPerth = mMap.addMarker(
+        Marker marker = mMap.addMarker(
             new MarkerOptions()
-            .position(PERTH)
-            .title("Perth")
+                .position(PALMAS)
+                .title("Palmas - TO")
+                .snippet("Praça dos Girassóis")
+                .icon(
+                        BitmapDescriptorFactory.fromResource(R.drawable.girassol)
+                )
         );
-        markerPerth.setTag(0);
-
-        markerSydney = mMap.addMarker(
-            new MarkerOptions()
-            .position(SYDNEY)
-            .title("Sidney")
-        );
-
+        marker.setTag(0);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(PALMAS));
         mMap.setOnMarkerClickListener(this);
     }
 
