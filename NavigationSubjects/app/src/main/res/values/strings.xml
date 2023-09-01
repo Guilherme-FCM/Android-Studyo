@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Navigation-Subjects</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_period1">1° Período</string>
+    <string name="menu_period2">2° Período</string>
+    <string name="menu_period3">3° Período</string>
+    <string name="menu_period4">4° Período</string>
+    <string name="menu_period5">5° Período</string>
+    <string name="menu_period6">6° Período</string>
+</resources>
