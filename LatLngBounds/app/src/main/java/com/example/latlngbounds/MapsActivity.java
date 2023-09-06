@@ -1,7 +1,11 @@
 package com.example.latlngbounds;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -17,11 +21,19 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.latlngbounds.databinding.ActivityMapsBinding;
 
-public class MapsActivity extends FragmentActivity
-        implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener {
+public class MapsActivity extends FragmentActivity implements
+        OnMapReadyCallback,
+        GoogleMap.OnCameraIdleListener,
+        GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMyLocationClickListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private boolean permissionDenied = false;
+
+
     private static final LatLngBounds ADELAIDE = new LatLngBounds(
             new LatLng(-35.0, 138.58),
             new LatLng(-34.9, 138.61)); //restrição
@@ -77,6 +89,7 @@ public class MapsActivity extends FragmentActivity
         mMap.setLatLngBoundsForCameraTarget(null);
         toast("LatLngBounds clamp reset.");
     }
+
     private void toast(String msg) {
         Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
     }
@@ -122,10 +135,88 @@ public class MapsActivity extends FragmentActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnCameraIdleListener(this);
+        mMap.setOnMyLocationButtonClickListener(this);
+        mMap.setOnMyLocationClickListener(this);
+        enableMyLocation();
+    }
+
+    private void enableMyLocation() {
+        if (
+            ActivityCompat.checkSelfPermission(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED
+            || ActivityCompat.checkSelfPermission(this,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+            PermissionUtils.requestPermission(
+                    this,
+                    LOCATION_PERMISSION_REQUEST_CODE,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    true
+            );
+        }
+
     }
 
     @Override
     public void onCameraIdle() {
         mCameraTextView.setText(mMap.getCameraPosition().toString());
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "O botão de localização " +
+                "foi clicado", Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+        Toast.makeText(this, "Atual localização: \n"+location,
+                Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+           @NonNull String[] permissions,
+           @NonNull int[] grantResults
+    ) {
+        if (requestCode!= LOCATION_PERMISSION_REQUEST_CODE){
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            return;
+        }
+        if (PermissionUtils.isPermissionGranted(
+            permissions,
+            grantResults,
+            android.Manifest.permission.ACCESS_FINE_LOCATION)
+        ) {
+            enableMyLocation();
+        } else {
+            permissionDenied = true;
+        }
+    }
+
+
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (permissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
+    }
+
+
+    private void showMissingPermissionError() {
+        PermissionUtils
+            .PermissionDeniedDialog
+            .newInstance(true)
+            .show(getSupportFragmentManager(), "dialog");
     }
 }
