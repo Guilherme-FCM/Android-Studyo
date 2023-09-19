@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/clamp_min_zoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSetMinZoomClamp"
+            android:text="MinZoom"/>
+
+        <Button
+            android:id="@+id/clamp_max_zoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSetMaxZoomClamp"
+            android:text="MaxZoom"/>
+
+        <Button
+            android:id="@+id/clamp_zoom_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onMinMaxZoomClampReset"
+            android:text="ResetZoom"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/clamp_latlng_adelaide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClampToAdelaide"
+            android:text= "Adelaide"/>
+
+        <Button
+            android:id="@+id/clamp_latlng_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onLatLngClampReset"
+            android:text="Reset Bounds" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/camera_text"
+            android:text="Position Camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity"
+        map:cameraMinZoomPreference="10.0"
+        map:cameraMaxZoomPreference="14.0"
+        map:cameraTargetLat="37.421976"
+        map:cameraTargetLng="-122.084065"
+        map:latLngBoundsNorthEastLatitude="37.45"
+        map:latLngBoundsNorthEastLongitude="-122.05"
+        map:latLngBoundsSouthWestLatitude="37.4"
+        map:latLngBoundsSouthWestLongitude="-122.1"
+        />
+</LinearLayout>
