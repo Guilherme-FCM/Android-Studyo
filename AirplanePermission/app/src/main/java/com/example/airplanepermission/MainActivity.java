@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         int age = Integer.parseInt( layout.age.getText().toString() );
 
         people.add( new Person(name, age) );
-        savePeopleOnSharedPreferences();
 
         layout.name.setText("");
         layout.age.setText("");
@@ -49,18 +48,22 @@ public class MainActivity extends AppCompatActivity {
         else Toast.makeText(this, "Chega, 3 ta bom!! Ative o modo avião", Toast.LENGTH_SHORT).show();
     }
 
-    private void savePeopleOnSharedPreferences() {
-        SharedPreferences sp = getSharedPreferences("people", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putFloat("people_average", getPeopleAverage());
-        editor.apply();
-    }
-
     private float getPeopleAverage() {
         return (float) people.stream().mapToInt(p -> p.age).average().orElse(0);
     }
 
     private void setRegisterCountOnView() {
         layout.count.setText(String.valueOf(people.size() + 1));
+    }
+
+    public class AirplaneModeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(context, "Avião sem asa, fogueira sem brasa, sou eu assim sem você.", Toast.LENGTH_LONG).show();
+
+            Intent it = new Intent(context, PeopleAverageActivity.class);
+            it.putExtra("average", getPeopleAverage());
+            context.startActivity(it);
+        }
     }
 }
