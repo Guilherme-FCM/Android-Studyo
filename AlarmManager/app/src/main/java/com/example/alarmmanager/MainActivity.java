@@ -10,6 +10,8 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
     private Button button;
     private AlarmManager alarmManager;
@@ -32,9 +34,15 @@ public class MainActivity extends AppCompatActivity {
                 intent,
                 PendingIntent.FLAG_IMMUTABLE
         );
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 5);
+        calendar.set(Calendar.MINUTE, 44);
+
         alarmManager.set(
-                AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + 5 * 1000,
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis() + 2 * 1000,
                 pendingIntent
         );
     }
