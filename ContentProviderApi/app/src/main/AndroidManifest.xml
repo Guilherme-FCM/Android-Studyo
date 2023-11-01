@@ -12,6 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ContentProviderApi"
         tools:targetApi="31">
+
+        <provider
+            android:authorities="com.example.contentproviderapi.provider"
+            android:name=".MyContentProvider"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
